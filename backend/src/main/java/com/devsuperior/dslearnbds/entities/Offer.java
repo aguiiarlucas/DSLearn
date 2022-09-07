@@ -9,7 +9,6 @@ import java.util.Objects;
 @Table(name = "tb_offer")
 public class Offer {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

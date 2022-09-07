@@ -11,7 +11,6 @@ import java.util.Objects;
 @Table(name = "tb_course")
 public class Course implements Serializable {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
