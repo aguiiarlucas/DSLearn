@@ -23,7 +23,7 @@ public class Notification implements Serializable {
     private String route;
 
     @ManyToOne
-    @JoinColumn(name = "tb_user")
+    @JoinColumn(name = "user_id")
     private  User user;
 
     public  Notification(){}
