@@ -5,9 +5,7 @@ import org.hibernate.annotations.GeneratorType;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_topic")
@@ -26,6 +24,12 @@ public class Topic implements Serializable {
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
 
+    @ManyToOne
+    @JoinColumn(name = "reply_id")
+    private Reply answer;
+
+    @OneToMany(mappedBy = "topic")
+    private List<Reply>replies = new ArrayList<>();
     @ManyToMany
     @JoinTable(name = "tb_topic_likes",
             joinColumns = @JoinColumn(name = "topic_id"),
@@ -40,15 +44,33 @@ public class Topic implements Serializable {
     @JoinColumn(name = "offer_id")
     private Offer offer;
 
+    public Reply getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Reply answer) {
+        this.answer = answer;
+    }
+
+    public List<Reply> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<Reply> replies) {
+        this.replies = replies;
+    }
+
     public Topic() {
     }
 
-    public Topic(Long id, String title, String body, Instant moment, Lesson lesson, Set<User> likes, User author, Offer offer) {
+    public Topic(Long id, String title, String body, Instant moment, Lesson lesson, Reply answer, List<Reply> replies, Set<User> likes, User author, Offer offer) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.moment = moment;
         this.lesson = lesson;
+        this.answer = answer;
+        this.replies = replies;
         this.likes = likes;
         this.author = author;
         this.offer = offer;
