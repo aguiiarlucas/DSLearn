@@ -19,6 +19,7 @@ public class User implements Serializable {
     @JoinTable(name="tb_user_role",
     joinColumns = @JoinColumn(name="user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
+
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
@@ -71,8 +72,8 @@ public class User implements Serializable {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public List<Notification>getNotifications(){
+        return notifications;
     }
 
     @Override
