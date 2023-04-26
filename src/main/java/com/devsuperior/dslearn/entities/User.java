@@ -2,6 +2,7 @@ package com.devsuperior.dslearn.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @Table(name = "tb_user")
+@NoArgsConstructor
 public class User  implements Serializable {
 
     @Id
@@ -26,7 +28,6 @@ public class User  implements Serializable {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-    private User() {
-    }
+
 }
 
