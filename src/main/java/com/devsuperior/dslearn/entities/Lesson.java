@@ -6,27 +6,21 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-
-@Data
 @Entity
+@Data
 @AllArgsConstructor
+@Table(name = "tb_lesson")
 @NoArgsConstructor
-@Table(name = "tb_course")
-public class Course  implements Serializable {
+public class Lesson implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String imgUri;
-    private String imgGrayUri;
+    private String tile;
+    private Integer position;
 
-    @OneToMany(mappedBy = "course")
-    private List<Offer>offers = new ArrayList<>();
-
-
+    @ManyToOne
+    @JoinColumn(name = "section_id")
+    private Section section;
 
 }

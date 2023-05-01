@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -15,6 +17,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @Table(name = "tb_offer")
+@NoArgsConstructor
 public class Offer implements Serializable {
 
     @Id
@@ -28,6 +31,7 @@ public class Offer implements Serializable {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    public Offer() {
-    }
+    @OneToMany(mappedBy = "offer")
+    private List<Resource> resources = new ArrayList<>();
+
 }
