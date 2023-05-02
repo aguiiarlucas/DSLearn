@@ -18,11 +18,11 @@ public abstract class Lesson implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String tile;
+    private String title;
     private Integer position;
 
     @ManyToMany
-    @JoinTable(name = "tb_lesson_done",
+    @JoinTable(name = "tb_lessons_done",
             joinColumns = @JoinColumn(name = "lesson_id"),
             inverseJoinColumns = {
                     @JoinColumn(name = "user_id"),
@@ -36,7 +36,7 @@ public abstract class Lesson implements Serializable {
 
             public Lesson(Long id, String tile, Integer position, Section section) {
         this.id = id;
-        this.tile = tile;
+        this.title = title;
         this.position = position;
         this.section = section;
     }
