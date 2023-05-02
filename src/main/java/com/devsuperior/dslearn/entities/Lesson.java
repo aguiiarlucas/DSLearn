@@ -1,17 +1,19 @@
 package com.devsuperior.dslearn.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Data
-@AllArgsConstructor
 @Table(name = "tb_lesson")
+@Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
-public class Lesson implements Serializable {
+public abstract class Lesson implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +21,23 @@ public class Lesson implements Serializable {
     private String tile;
     private Integer position;
 
-    @ManyToOne
-    @JoinColumn(name = "section_id")
-    private Section section;
+    @ManyToMany
+    @JoinTable(name = "tb_lesson_done",
+            joinColumns = @JoinColumn(name = "lesson_id"),
+            inverseJoinColumns = {
+                    @JoinColumn(name = "user_id"),
+                    @JoinColumn(name = "offer_id")
+            })
+            private Set<Enrollment> enrollmentsDone = new HashSet<>();
+            @ManyToOne
+            @JoinColumn(name = "section_id")
+            private Section section;
 
+
+            public Lesson(Long id, String tile, Integer position, Section section) {
+        this.id = id;
+        this.tile = tile;
+        this.position = position;
+        this.section = section;
+    }
 }
