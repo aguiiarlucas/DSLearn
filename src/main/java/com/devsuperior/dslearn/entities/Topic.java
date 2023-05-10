@@ -8,7 +8,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -16,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "tb_topic")
 @NoArgsConstructor
-public class Topic  implements Serializable {
+public class Topic implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -27,10 +29,29 @@ public class Topic  implements Serializable {
     private Instant moment;
 
     @ManyToOne
-    @JoinColumn(name = "lesson_id")
+    @JoinColumn(name = "author_id")
+    private User author;
+    @ManyToOne
+    @JoinColumn(name = "offer_id")
     private Offer offer;
+
+    @ManyToOne
+    @JoinColumn(name = "lesson_id")
+    private Lesson lesson;
+
+
+    @ManyToOne
+    @JoinColumn(name = "reply_id")
+    private Reply answer;
+
+    @ManyToMany
+    @JoinTable(name = "tb_topic_likes",
+            joinColumns = @JoinColumn(name = "topic_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> likes = new HashSet<>();
 
     @OneToMany(mappedBy = "topic")
     private List<Reply> replies = new ArrayList<>();
+
 
 }

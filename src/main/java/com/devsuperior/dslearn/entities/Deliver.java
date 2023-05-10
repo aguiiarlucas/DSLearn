@@ -26,11 +26,20 @@ public class Deliver  implements Serializable {
     private String uri;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE ")
     private Instant moment;
-    private DeliverStatus deliverStatus;
+    private DeliverStatus status;
     private String feedback;
-    private int correctCount;
+    private Integer correctCount;
 
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "offer_id"),
+            @JoinColumn(name = "user_id")
+    })
+    private Enrollment enrollment;
     @ManyToOne
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
+
+
+
 }
