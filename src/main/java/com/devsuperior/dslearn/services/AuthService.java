@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AuthService {
 
-
     @Autowired
     private UserRepository repository;
 
@@ -27,11 +26,12 @@ public class AuthService {
         }
 
     }
-        public  void  validateSelfOfAdmin(Long userId){
-            User user = authorized();
-            if(!user.getId().equals(userId)){
-                throw new ForbiddenException("Access denied");
-            }
+
+    public void validateSelfOfAdmin(Long userId) {
+        User user = authorized();
+        if (!user.getId().equals(userId) && !user.hasHole("ROLE_ADMIN")) {
+            throw new ForbiddenException("Access denied");
         }
+    }
 
 }
